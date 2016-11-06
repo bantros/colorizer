@@ -1,5 +1,7 @@
 'use strict';
 
+import { Storage } from './Storage';
+
 export const Colorizer = {
 
   swatchPanel  : document.getElementsByClassName('swatch__panel'),
@@ -64,6 +66,8 @@ export const Colorizer = {
       // document.getElementById('js-code__lighten').innerHTML = '.colorizer::before {\n\xa0 z-index: 2500;\n\xa0 background-color: #'+ color +';\n\xa0 mix-blend-mode: lighten;\n\}';
     }
 
+    Storage.savePalette(blend, color);
+
   },
 
   render() {
@@ -72,12 +76,12 @@ export const Colorizer = {
     Colorizer.createSwatchList();
 
     // Open swatch list
-    for (var i = 0; i < Colorizer.btnAction.length; i++) {
+    for (let i = 0; i < Colorizer.btnAction.length; i++) {
       Colorizer.btnAction[i].addEventListener('click', Colorizer.toggleSwatchOverlay, false);
     }
 
     // Click swatch to update blend modes
-    for (var i = 0; i < Colorizer.btnSwatch.length; i++) {
+    for (let i = 0; i < Colorizer.btnSwatch.length; i++) {
       Colorizer.btnSwatch[i].addEventListener('click', Colorizer.updateBlendMode, false);
     }
 

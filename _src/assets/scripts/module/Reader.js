@@ -1,5 +1,7 @@
 'use strict';
 
+import { Storage } from './Storage';
+
 export const Reader = {
 
   input : document.getElementById('js-input__file'),
@@ -11,17 +13,22 @@ export const Reader = {
 
   handleFileUpload() {
 
-    let r, file;
+    let fileReader, file, result;
 
-    r = new FileReader();
+    fileReader = new FileReader();
     file = Reader.input.files[0];
 
     if (file) {
-      r.readAsDataURL(file);
+      fileReader.readAsDataURL(file);
     }
 
-    r.addEventListener('load', function () {
-      Reader.image.src = r.result;
+    fileReader.addEventListener('load', function () {
+
+      result = fileReader.result;
+      Reader.image.src = result;
+
+      Storage.handleImage(result);
+
     }, false);
 
   },

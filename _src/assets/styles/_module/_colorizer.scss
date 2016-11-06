@@ -1,6 +1,13 @@
 .colorizer {
   position: relative;
   margin: auto;
+  background-color: $brand-grey--light;
+  opacity: 0;
+  transition: all 300ms ease-in-out;
+}
+
+.colorizer.is-loaded {
+  opacity: 1;
 }
 
 .colorizer::before,
@@ -26,8 +33,13 @@
 }
 
 .colorizer__image {
-  // max-height: calc(100vh - 6.25em);
   max-height: 100vh;
   object-fit: contain;
+  opacity: 0;
   filter: contrast(110%) grayscale(100%);
+  transition: all 300ms 150ms ease-in-out;
+}
+
+.colorizer.is-loaded .colorizer__image {
+  opacity: 1;
 }
