@@ -1,0 +1,36 @@
+{% extends '_layouts/_master.html' %}
+
+{% block content %}
+
+  <div class="panel">
+
+    <div class="panel__item  panel__item--colorizer">
+
+      <figure class="colorizer" id="js-colorizer">
+        <img id="js-previewFile" src="/assets/images/warpaint.jpg" alt="Image replaced via file upload">
+      </figure>
+
+    </div>
+
+    <div class="panel__item  panel__item--action">
+
+      <div class="panel__action  t-subtitle">
+        <button class="btn  btn--primary  btn--action" data-target="multiply">Multiply</button>
+      </div>
+
+      <div class="panel__action  t-subtitle">
+        <button class="btn  btn--primary  btn--action" data-target="lighten">Lighten</button>
+      </div>
+
+      <div class="panel__action  t-subtitle">
+        <label class="btn  btn--primary">
+          <input class="input__file" id="js-uploadFile" type="file" aria-label="Select file to upload">
+          <span>Upload</span>
+        </label>
+      </div>
+
+    </div>
+
+  </div>
+
+{% endblock %}

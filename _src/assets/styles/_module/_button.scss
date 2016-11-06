@@ -1,0 +1,35 @@
+.btn {
+  background-color: transparent;
+  border: 0;
+  border-radius: 0;
+  cursor: pointer;
+  outline: none;
+  transition: all 300ms ease-in-out;
+}
+
+.btn:hover {
+  color: $brand-grey;
+  border-color: $brand-grey;
+}
+
+.btn--primary {
+  min-width: 8.75rem;
+  padding: 0.25em 1em;
+  text-align: center;
+  color: $brand-grey--dark;
+  border: 2px solid currentColor;
+}
+
+.btn--action[data-target="multiply"] {
+  color: var(--blend-multiply);
+  border-color: var(--blend-multiply);
+}
+
+.btn--action[data-target="lighten"] {
+  color: var(--blend-lighten);
+  border-color: var(--blend-lighten);
+}
+
+.btn--swatch {
+  width: 100%;
+}

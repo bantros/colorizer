@@ -1,0 +1,29 @@
+.colorizer {
+  position: relative;
+}
+
+.colorizer::before,
+.colorizer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.colorizer::before {
+  z-index: 2500;
+  background-color: var(--blend-multiply);
+  mix-blend-mode: multiply;
+}
+
+.colorizer::after {
+  z-index: 2750;
+  background-color: var(--blend-lighten);
+  mix-blend-mode: lighten;
+}
+
+.colorizer img {
+  filter: contrast(110%) grayscale(100);
+}

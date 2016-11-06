@@ -1,0 +1,46 @@
+.t-block {
+  max-width: 40em;
+}
+
+.t-title {
+  font-size: 1.25em;
+  line-height: 1.25;
+}
+
+@media only screen and (min-width: 600px) {
+
+  .t-title {
+    font-size: 2em;
+  }
+
+}
+
+@media only screen and (min-width: 1600px) {
+
+  .t-title {
+    font-size: 2.5em;
+  }
+
+}
+
+.t-subtitle {
+  font-size: 0.875em;
+  line-height: 1.25;
+  color: $brand-grey;
+}
+
+@media only screen and (min-width: 600px) {
+
+  .t-subtitle {
+    font-size: 1.25em;
+  }
+
+}
+
+@media only screen and (min-width: 1600px) {
+
+  .t-subtitle {
+    font-size: 1.5em;
+  }
+
+}

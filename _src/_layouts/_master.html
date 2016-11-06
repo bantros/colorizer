@@ -1,0 +1,53 @@
+{% set siteName = 'Colorizer' %}
+
+<!doctype html>
+
+<html lang="en" class="no-js">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <meta name="description" content="Experiment with CSS Blend Modes to reproduce the effects of Spotify's brand identity.">
+    <title>{{ siteName }}</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-title" content="{{ siteName }}">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="/assets/styles/main.css">
+
+  </head>
+
+  <body>
+
+    <div class="app" id="js-app">
+
+      <header class="header" id="js-test" role="banner">
+        <div class="t-block">
+          <h1 class="t-subtitle">Colorizer</h1>
+          <h2 class="t-title">Experiment with CSS Blend Modes to reproduce the effects of <a class="" href="http://www.wearecollins.com/work/spotify/" target="_blank">Spotify's brand identity.</a></h2>
+        </div>
+      </header>
+
+      <main class="main" role="main">
+        {% block content %}
+        {% endblock %}
+      </main>
+
+      <div class="swatch" id="js-swatch">
+        <div class="swatch__content">
+          <div class="swatch__panel" id="js-swatch__multiply"></div>
+          <div class="swatch__panel" id="js-swatch__lighten"></div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <script async src="/assets/scripts/bundle.js"></script>
+
+  </body>
+
+</html>

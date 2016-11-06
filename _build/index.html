@@ -1,0 +1,82 @@
+
+<!doctype html>
+
+<html lang="en" class="no-js">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <meta name="description" content="Experiment with CSS Blend Modes to reproduce the effects of Spotify's brand identity.">
+    <title>Colorizer</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-title" content="Colorizer">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="/assets/styles/main.css">
+
+  </head>
+
+  <body>
+
+    <div class="app" id="js-app">
+
+      <header class="header" id="js-test" role="banner">
+        <div class="t-block">
+          <h1 class="t-subtitle">Colorizer</h1>
+          <h2 class="t-title">Experiment with CSS Blend Modes to reproduce the effects of <a class="" href="http://www.wearecollins.com/work/spotify/" target="_blank">Spotify's brand identity.</a></h2>
+        </div>
+      </header>
+
+      <main class="main" role="main">
+        
+  <div class="panel">
+
+    <div class="panel__item  panel__item--colorizer">
+
+      <figure class="colorizer" id="js-colorizer">
+        <img id="js-previewFile" src="/assets/images/warpaint.jpg" alt="Image replaced via file upload">
+      </figure>
+
+    </div>
+
+    <div class="panel__item  panel__item--action">
+
+      <div class="panel__action  t-subtitle">
+        <button class="btn  btn--primary  btn--action" data-target="multiply">Multiply</button>
+      </div>
+
+      <div class="panel__action  t-subtitle">
+        <button class="btn  btn--primary  btn--action" data-target="lighten">Lighten</button>
+      </div>
+
+      <div class="panel__action  t-subtitle">
+        <label class="btn  btn--primary">
+          <input class="input__file" id="js-uploadFile" type="file" aria-label="Select file to upload">
+          <span>Upload</span>
+        </label>
+      </div>
+
+    </div>
+
+  </div>
+
+      </main>
+
+      <div class="swatch" id="js-swatch">
+        <div class="swatch__content">
+          <div class="swatch__panel" id="js-swatch__multiply"></div>
+          <div class="swatch__panel" id="js-swatch__lighten"></div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <script async src="/assets/scripts/bundle.js"></script>
+
+  </body>
+
+</html>

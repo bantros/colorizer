@@ -1,0 +1,48 @@
+# repo
+
+_build/.htaccess
+_build/assets/images/*
+_build/assets/styles/font/*
+
+
+# npm / gulp
+
+.sass-cache
+node_modules
+npm-debug.log
+
+# compiled
+
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# packages
+
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# logs / database
+
+*.log
+*.sql
+*.sqlite
+
+# os
+
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

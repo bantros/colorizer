@@ -1,0 +1,96 @@
+// states
+
+.h-hide-mobile,
+.h-hide-tablet {
+  display: none;
+}
+
+.h-show-mobile {
+  display: block;
+}
+
+@media only screen and (min-width: 768px) {
+
+  .h-show-mobile {
+    display: none;
+  }
+
+  .h-hide-mobile {
+    display: block;
+  }
+
+  .h-show-tablet {
+    display: block;
+  }
+
+  .h-hide-tablet {
+    display: none;
+  }
+
+}
+
+@media only screen and (min-width: 1200px) {
+
+  .h-show-tablet {
+    display: none;
+  }
+
+  .h-hide-tablet {
+    display: block;
+  }
+
+}
+
+.is-hidden {
+  visibility: hidden;
+  opacity: 0;
+}
+
+// misc
+
+.h-fluid-image {
+  width: 100%;
+  height: auto;
+}
+
+.h-mb0x {
+  margin-bottom: 0;
+}
+
+.h-mb1x {
+  margin-bottom: 1rem;
+}
+
+.h-mb2x {
+  margin-bottom: 2rem;
+}
+
+//
+
+.h-ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+// screen reader text
+
+.h-srt {
+  clip: rect(1px,1px,1px,1px);
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+// clearfix
+
+.h-cf::before,
+.h-cf::after {
+  content: '';
+  display: table;
+}
+
+.h-cf::after {
+  clear: both;
+}
