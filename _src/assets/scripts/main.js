@@ -1,12 +1,14 @@
 'use strict';
 
 import { Colorizer } from './module/Colorizer';
+import { Reader } from './module/Reader';
 
 (function() {
 
   document.documentElement.className = 'js';
 
   Colorizer.init();
+  Reader.init();
 
 })();
 

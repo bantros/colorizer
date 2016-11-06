@@ -1,13 +1,13 @@
 .swatch {
-  position: fixed;
+  position: absolute;
   top: 0;
-  left: 0;
-  z-index: 5000;
+  right: 0;
+  z-index: 7500;
   display: flex;
   width: 6.25em;
   height: 100vh;
   // box-shadow: -6px 6px 12px rgba(0,0,0,0.25);
-  transform: translateX(-100%);
+  transform: translateX(100%);
   transition: transform 300ms ease-in-out;
 }
 
@@ -34,4 +34,7 @@
 .swatch__item {
   display: flex;
   flex: 1 0 auto;
+  align-items: center;
+  justify-content: center;
+  padding: 1.563em;
 }

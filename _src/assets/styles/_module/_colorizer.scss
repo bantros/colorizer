@@ -24,6 +24,8 @@
   mix-blend-mode: lighten;
 }
 
-.colorizer img {
-  filter: contrast(110%) grayscale(100);
+.colorizer__image {
+  max-height: 100%;
+  object-fit: contain;
+  filter: contrast(110%) grayscale(100%);
 }
