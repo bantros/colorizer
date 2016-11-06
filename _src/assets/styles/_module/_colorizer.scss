@@ -1,5 +1,6 @@
 .colorizer {
   position: relative;
+  margin: auto;
 }
 
 .colorizer::before,
@@ -25,7 +26,8 @@
 }
 
 .colorizer__image {
-  max-height: 100%;
+  // max-height: calc(100vh - 6.25em);
+  max-height: 100vh;
   object-fit: contain;
   filter: contrast(110%) grayscale(100%);
 }

@@ -30,7 +30,7 @@ export const Colorizer = {
     let target = this.dataset.target;
 
     // Toggle active class on action btn
-    for (var i = 0; i < Colorizer.btnAction.length; i++) {
+    for (let i = 0; i < Colorizer.btnAction.length; i++) {
       Colorizer.btnAction[i].classList.remove('is-active');
     }
 
@@ -39,7 +39,7 @@ export const Colorizer = {
     // Open swatch overlay and show selected panel
     document.getElementById('js-swatch').classList.add('is-active');
 
-    for (var i = 0; i < Colorizer.swatchPanel.length; i++) {
+    for (let i = 0; i < Colorizer.swatchPanel.length; i++) {
       Colorizer.swatchPanel[i].style.setProperty('display', 'none');
     }
 

@@ -7,3 +7,11 @@
   padding: 3.125em;
   isolation: isolate;
 }
+
+@media only screen and (min-width: 1600px) {
+
+  .header {
+    padding: 6.25em;
+  }
+
+}

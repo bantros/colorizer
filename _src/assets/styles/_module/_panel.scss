@@ -1,12 +1,19 @@
 .panel {
-  position: relative;
   display: flex;
   flex-direction: row;
   flex: 1 0 auto;
-  align-items: center;
-  justify-content: center;
   width: 100%;
-  padding: 3.125em;
+  padding-left: 3.125em;
+  padding-right: 3.125em;
+}
+
+@media only screen and (min-width: 1600px) {
+
+  .panel {
+    padding-left: 6.25em;
+    padding-right: 6.25em;
+  }
+
 }
 
 .panel__item {
@@ -16,7 +23,7 @@
 .panel__item--colorizer {
   display: flex;
   flex: 1 1 auto;
-  max-width: 75em;
+  // max-width: 75em;
 }
 
 .panel__item--action {
@@ -24,13 +31,6 @@
   flex-direction: column;
   max-width: 11.875em;
   padding-right: 3.125em;
-}
-
-.panel__center {
-  display: flex;
-  flex-direction: column;
-  flex: 1 1 auto;
-  align-items: center;
   justify-content: center;
 }
 
