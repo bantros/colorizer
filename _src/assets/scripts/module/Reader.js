@@ -18,8 +18,10 @@ export const Reader = {
     fileReader = new FileReader();
     file = Reader.input.files[0];
 
-    if (file) {
+    if (file.name.match(/\.(jpg|jpeg|png|gif)$/)) {
       fileReader.readAsDataURL(file);
+    } else {
+      console.log('File selected not a valid image');
     }
 
     fileReader.addEventListener('load', function () {

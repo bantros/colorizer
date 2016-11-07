@@ -1,1 +1,651 @@
-!function(t){function e(i){if(n[i])return n[i].exports;var o=n[i]={exports:{},id:i,loaded:!1};return t[i].call(o.exports,o,o.exports,e),o.loaded=!0,o.exports}var n={};return e.m=t,e.c=n,e.p="",e(0)}([function(t,e,n){n(1),n(2),n(4),t.exports=n(3)},function(t,e,n){"use strict";var i=n(2),o=n(4),a=n(3);!function(){document.documentElement.className="js",i.Colorizer.init(),o.Reader.init(),a.Storage.init();var t=setInterval(function(){/loaded|complete/.test(document.readyState)&&(clearInterval(t),document.getElementById("js-colorizer").classList.add("is-loaded"))},10)}();var s=n(5);s.load({custom:{families:["Apercu"]}}),"colorizer.bantros.net"===window.location.host&&(!function(t,e,n,i,o,a,s){t.GoogleAnalyticsObject=o,t[o]=t[o]||function(){(t[o].q=t[o].q||[]).push(arguments)},t[o].l=1*new Date,a=e.createElement(n),s=e.getElementsByTagName(n)[0],a.async=1,a.src=i,s.parentNode.insertBefore(a,s)}(window,document,"script","//www.google-analytics.com/analytics.js","ga"),ga("create","UA-25002845-7","auto"),ga("send","pageview"))},function(t,e,n){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e.Colorizer=void 0;var i=n(3),o=e.Colorizer={swatchPanel:document.getElementsByClassName("swatch__panel"),btnAction:document.getElementsByClassName("btn--action"),btnSwatch:document.getElementsByClassName("btn--swatch"),hexMultiply:["15a29c","e6625e","1fde91","00ffcb","f4c7ee","fec8be"],hexLighten:["293571","15a29c","083ea7","864bff","008fd3","20ad65"],init:function(){this.render()},createSwatchList:function(){for(var t=0;t<o.hexMultiply.length;t++)document.getElementById("js-swatch__multiply").insertAdjacentHTML("beforeend",'<div class="swatch__item"><button class="btn  btn--swatch" style="background-color:#'+o.hexMultiply[t]+'" data-blend="multiply" data-color="'+o.hexMultiply[t]+'"></button></div>');for(var e=0;e<o.hexLighten.length;e++)document.getElementById("js-swatch__lighten").insertAdjacentHTML("beforeend",'<div class="swatch__item"><button class="btn  btn--swatch" style="background-color:#'+o.hexLighten[e]+'" data-blend="lighten" data-color="'+o.hexLighten[e]+'"></button></div>')},toggleSwatchOverlay:function(){for(var t=this.dataset.target,e=0;e<o.btnAction.length;e++)o.btnAction[e].classList.remove("is-active");this.classList.add("is-active"),document.getElementById("js-swatch").classList.add("is-active");for(var n=0;n<o.swatchPanel.length;n++)o.swatchPanel[n].style.setProperty("display","none");"multiply"===t?document.getElementById("js-swatch__multiply").style.setProperty("display","flex"):"lighten"===t&&document.getElementById("js-swatch__lighten").style.setProperty("display","flex")},updateBlendMode:function(){var t=this.dataset.blend,e=this.dataset.color;"multiply"===t?document.documentElement.style.setProperty("--blend-multiply","#"+e):"lighten"===t&&document.documentElement.style.setProperty("--blend-lighten","#"+e),i.Storage.savePalette(t,e)},render:function(){o.createSwatchList();for(var t=0;t<o.btnAction.length;t++)o.btnAction[t].addEventListener("click",o.toggleSwatchOverlay,!1);for(var e=0;e<o.btnSwatch.length;e++)o.btnSwatch[e].addEventListener("click",o.updateBlendMode,!1)}}},function(t,e){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var n=e.Storage={blendMultiply:localStorage.getItem("blendMultiply"),blendLighten:localStorage.getItem("blendLighten"),userImage:localStorage.getItem("userImage"),colorizerImage:document.getElementById("js-colorizer__image"),init:function(){this.render()},savePalette:function(t,e){"multiply"===t?localStorage.setItem("blendMultiply",e):"lighten"===t&&localStorage.setItem("blendLighten",e)},handleImage:function(t){localStorage.setItem("userImage",t)},render:function(){n.blendMultiply&&document.documentElement.style.setProperty("--blend-multiply","#"+n.blendMultiply),n.blendLighten&&document.documentElement.style.setProperty("--blend-lighten","#"+n.blendLighten),n.userImage&&(n.colorizerImage.src=n.userImage)}}},function(t,e,n){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e.Reader=void 0;var i=n(3),o=e.Reader={input:document.getElementById("js-input__file"),image:document.getElementById("js-colorizer__image"),init:function(){this.render()},handleFileUpload:function(){var t=void 0,e=void 0,n=void 0;t=new FileReader,e=o.input.files[0],e&&t.readAsDataURL(e),t.addEventListener("load",function(){n=t.result,o.image.src=n,i.Storage.handleImage(n)},!1)},render:function(){o.input.addEventListener("change",o.handleFileUpload,!1)}}},function(t,e,n){var i;!function(){function o(t,e,n){return t.call.apply(t.bind,arguments)}function a(t,e,n){if(!t)throw Error();if(2<arguments.length){var i=Array.prototype.slice.call(arguments,2);return function(){var n=Array.prototype.slice.call(arguments);return Array.prototype.unshift.apply(n,i),t.apply(e,n)}}return function(){return t.apply(e,arguments)}}function s(t,e,n){return s=Function.prototype.bind&&-1!=Function.prototype.bind.toString().indexOf("native code")?o:a,s.apply(null,arguments)}function r(t,e){this.a=t,this.m=e||t,this.c=this.m.document}function c(t,e,n,i){if(e=t.c.createElement(e),n)for(var o in n)n.hasOwnProperty(o)&&("style"==o?e.style.cssText=n[o]:e.setAttribute(o,n[o]));return i&&e.appendChild(t.c.createTextNode(i)),e}function l(t,e,n){t=t.c.getElementsByTagName(e)[0],t||(t=document.documentElement),t.insertBefore(n,t.lastChild)}function h(t){t.parentNode&&t.parentNode.removeChild(t)}function u(t,e,n){e=e||[],n=n||[];for(var i=t.className.split(/\s+/),o=0;o<e.length;o+=1){for(var a=!1,s=0;s<i.length;s+=1)if(e[o]===i[s]){a=!0;break}a||i.push(e[o])}for(e=[],o=0;o<i.length;o+=1){for(a=!1,s=0;s<n.length;s+=1)if(i[o]===n[s]){a=!0;break}a||e.push(i[o])}t.className=e.join(" ").replace(/\s+/g," ").replace(/^\s+|\s+$/,"")}function f(t,e){for(var n=t.className.split(/\s+/),i=0,o=n.length;i<o;i++)if(n[i]==e)return!0;return!1}function d(t){if("string"==typeof t.f)return t.f;var e=t.m.location.protocol;return"about:"==e&&(e=t.a.location.protocol),"https:"==e?"https:":"http:"}function g(t){return t.m.location.hostname||t.a.location.hostname}function p(t,e,n){function i(){r&&o&&a&&(r(s),r=null)}e=c(t,"link",{rel:"stylesheet",href:e,media:"all"});var o=!1,a=!0,s=null,r=n||null;rt?(e.onload=function(){o=!0,i()},e.onerror=function(){o=!0,s=Error("Stylesheet failed to load"),i()}):setTimeout(function(){o=!0,i()},0),l(t,"head",e)}function m(t,e,n,i){var o=t.c.getElementsByTagName("head")[0];if(o){var a=c(t,"script",{src:e}),s=!1;return a.onload=a.onreadystatechange=function(){s||this.readyState&&"loaded"!=this.readyState&&"complete"!=this.readyState||(s=!0,n&&n(null),a.onload=a.onreadystatechange=null,"HEAD"==a.parentNode.tagName&&o.removeChild(a))},o.appendChild(a),setTimeout(function(){s||(s=!0,n&&n(Error("Script load timeout")))},i||5e3),a}return null}function v(){this.a=0,this.c=null}function y(t){return t.a++,function(){t.a--,b(t)}}function w(t,e){t.c=e,b(t)}function b(t){0==t.a&&t.c&&(t.c(),t.c=null)}function _(t){this.a=t||"-"}function j(t,e){this.c=t,this.f=4,this.a="n";var n=(e||"n4").match(/^([nio])([1-9])$/i);n&&(this.a=n[1],this.f=parseInt(n[2],10))}function x(t){return I(t)+" "+(t.f+"00")+" 300px "+S(t.c)}function S(t){var e=[];t=t.split(/,\s*/);for(var n=0;n<t.length;n++){var i=t[n].replace(/['"]/g,"");-1!=i.indexOf(" ")||/^\d/.test(i)?e.push("'"+i+"'"):e.push(i)}return e.join(",")}function E(t){return t.a+t.f}function I(t){var e="normal";return"o"===t.a?e="oblique":"i"===t.a&&(e="italic"),e}function k(t){var e=4,n="n",i=null;return t&&((i=t.match(/(normal|oblique|italic)/i))&&i[1]&&(n=i[1].substr(0,1).toLowerCase()),(i=t.match(/([1-9]00|normal|bold)/i))&&i[1]&&(/bold/i.test(i[1])?e=7:/[1-9]00/.test(i[1])&&(e=parseInt(i[1].substr(0,1),10)))),n+e}function L(t,e){this.c=t,this.f=t.m.document.documentElement,this.h=e,this.a=new _("-"),this.j=!1!==e.events,this.g=!1!==e.classes}function T(t){t.g&&u(t.f,[t.a.c("wf","loading")]),B(t,"loading")}function A(t){if(t.g){var e=f(t.f,t.a.c("wf","active")),n=[],i=[t.a.c("wf","loading")];e||n.push(t.a.c("wf","inactive")),u(t.f,n,i)}B(t,"inactive")}function B(t,e,n){t.j&&t.h[e]&&(n?t.h[e](n.c,E(n)):t.h[e]())}function P(){this.c={}}function C(t,e,n){var i,o=[];for(i in e)if(e.hasOwnProperty(i)){var a=t.c[i];a&&o.push(a(e[i],n))}return o}function N(t,e){this.c=t,this.f=e,this.a=c(this.c,"span",{"aria-hidden":"true"},this.f)}function M(t){l(t.c,"body",t.a)}function O(t){return"display:block;position:absolute;top:-9999px;left:-9999px;font-size:300px;width:auto;height:auto;line-height:normal;margin:0;padding:0;font-variant:normal;white-space:nowrap;font-family:"+S(t.c)+";"+("font-style:"+I(t)+";font-weight:"+(t.f+"00")+";")}function z(t,e,n,i,o,a){this.g=t,this.j=e,this.a=i,this.c=n,this.f=o||3e3,this.h=a||void 0}function F(t,e,n,i,o,a,s){this.v=t,this.B=e,this.c=n,this.a=i,this.s=s||"BESbswy",this.f={},this.w=o||3e3,this.u=a||null,this.o=this.j=this.h=this.g=null,this.g=new N(this.c,this.s),this.h=new N(this.c,this.s),this.j=new N(this.c,this.s),this.o=new N(this.c,this.s),t=new j(this.a.c+",serif",E(this.a)),t=O(t),this.g.a.style.cssText=t,t=new j(this.a.c+",sans-serif",E(this.a)),t=O(t),this.h.a.style.cssText=t,t=new j("serif",E(this.a)),t=O(t),this.j.a.style.cssText=t,t=new j("sans-serif",E(this.a)),t=O(t),this.o.a.style.cssText=t,M(this.g),M(this.h),M(this.j),M(this.o)}function W(){if(null===lt){var t=/AppleWebKit\/([0-9]+)(?:\.([0-9]+))/.exec(window.navigator.userAgent);lt=!!t&&(536>parseInt(t[1],10)||536===parseInt(t[1],10)&&11>=parseInt(t[2],10))}return lt}function D(t,e,n){for(var i in ct)if(ct.hasOwnProperty(i)&&e===t.f[ct[i]]&&n===t.f[ct[i]])return!0;return!1}function R(t){var e,n=t.g.a.offsetWidth,i=t.h.a.offsetWidth;(e=n===t.f.serif&&i===t.f["sans-serif"])||(e=W()&&D(t,n,i)),e?st()-t.A>=t.w?W()&&D(t,n,i)&&(null===t.u||t.u.hasOwnProperty(t.a.c))?q(t,t.v):q(t,t.B):U(t):q(t,t.v)}function U(t){setTimeout(s(function(){R(this)},t),50)}function q(t,e){setTimeout(s(function(){h(this.g.a),h(this.h.a),h(this.j.a),h(this.o.a),e(this.a)},t),0)}function H(t,e,n){this.c=t,this.a=e,this.f=0,this.o=this.j=!1,this.s=n}function $(t){0==--t.f&&t.j&&(t.o?(t=t.a,t.g&&u(t.f,[t.a.c("wf","active")],[t.a.c("wf","loading"),t.a.c("wf","inactive")]),B(t,"active")):A(t.a))}function G(t){this.j=t,this.a=new P,this.h=0,this.f=this.g=!0}function K(t,e,n,i,o){var a=0==--t.h;(t.f||t.g)&&setTimeout(function(){var t=o||null,r=i||null||{};if(0===n.length&&a)A(e.a);else{e.f+=n.length,a&&(e.j=a);var c,l=[];for(c=0;c<n.length;c++){var h=n[c],f=r[h.c],d=e.a,g=h;d.g&&u(d.f,[d.a.c("wf",g.c,E(g).toString(),"loading")]),B(d,"fontloading",g),d=null,null===ht&&(ht=!!window.FontFace&&(!(g=/Gecko.*Firefox\/(\d+)/.exec(window.navigator.userAgent))||42<parseInt(g[1],10))),d=ht?new z(s(e.g,e),s(e.h,e),e.c,h,e.s,f):new F(s(e.g,e),s(e.h,e),e.c,h,e.s,t,f),l.push(d)}for(c=0;c<l.length;c++)l[c].start()}},0)}function J(t,e,n){var i=[],o=n.timeout;T(e);var i=C(t.a,n,t.c),a=new H(t.c,e,o);for(t.h=i.length,e=0,n=i.length;e<n;e++)i[e].load(function(e,n,i){K(t,a,e,n,i)})}function Q(t,e){this.c=t,this.a=e}function V(t,e,n){var i=d(t.c);return t=(t.a.api||"fast.fonts.net/jsapi").replace(/^.*http(s?):(\/\/)?/,""),i+"//"+t+"/"+e+".js"+(n?"?v="+n:"")}function X(t,e){this.c=t,this.a=e}function Y(t,e,n){t?this.c=t:this.c=e+ut,this.a=[],this.f=[],this.g=n||""}function Z(t,e){for(var n=e.length,i=0;i<n;i++){var o=e[i].split(":");3==o.length&&t.f.push(o.pop());var a="";2==o.length&&""!=o[1]&&(a=":"),t.a.push(o.join(a))}}function tt(t){if(0==t.a.length)throw Error("No fonts to load!");if(-1!=t.c.indexOf("kit="))return t.c;for(var e=t.a.length,n=[],i=0;i<e;i++)n.push(t.a[i].replace(/ /g,"+"));return e=t.c+"?family="+n.join("%7C"),0<t.f.length&&(e+="&subset="+t.f.join(",")),0<t.g.length&&(e+="&text="+encodeURIComponent(t.g)),e}function et(t){this.f=t,this.a=[],this.c={}}function nt(t){for(var e=t.f.length,n=0;n<e;n++){var i=t.f[n].split(":"),o=i[0].replace(/\+/g," "),a=["n4"];if(2<=i.length){var s,r=i[1];if(s=[],r)for(var r=r.split(","),c=r.length,l=0;l<c;l++){var h;if(h=r[l],h.match(/^[\w-]+$/)){var u=pt.exec(h.toLowerCase());if(null==u)h="";else{if(h=u[2],h=null==h||""==h?"n":gt[h],u=u[1],null==u||""==u)u="4";else var f=dt[u],u=f?f:isNaN(u)?"4":u.substr(0,1);h=[h,u].join("")}}else h="";h&&s.push(h)}0<s.length&&(a=s),3==i.length&&(i=i[2],s=[],i=i?i.split(","):s,0<i.length&&(i=ft[i[0]])&&(t.c[o]=i))}for(t.c[o]||(i=ft[o])&&(t.c[o]=i),i=0;i<a.length;i+=1)t.a.push(new j(o,a[i]))}}function it(t,e){this.c=t,this.a=e}function ot(t,e){this.c=t,this.a=e}function at(t,e){this.c=t,this.f=e,this.a=[]}var st=Date.now||function(){return+new Date},rt=!!window.FontFace;_.prototype.c=function(t){for(var e=[],n=0;n<arguments.length;n++)e.push(arguments[n].replace(/[\W_]+/g,"").toLowerCase());return e.join(this.a)},z.prototype.start=function(){var t=this.c.m.document,e=this,n=st(),i=new Promise(function(i,o){function a(){st()-n>=e.f?o():t.fonts.load(x(e.a),e.h).then(function(t){1<=t.length?i():setTimeout(a,25)},function(){o()})}a()}),o=new Promise(function(t,n){setTimeout(n,e.f)});Promise.race([o,i]).then(function(){e.g(e.a)},function(){e.j(e.a)})};var ct={D:"serif",C:"sans-serif"},lt=null;F.prototype.start=function(){this.f.serif=this.j.a.offsetWidth,this.f["sans-serif"]=this.o.a.offsetWidth,this.A=st(),R(this)};var ht=null;H.prototype.g=function(t){var e=this.a;e.g&&u(e.f,[e.a.c("wf",t.c,E(t).toString(),"active")],[e.a.c("wf",t.c,E(t).toString(),"loading"),e.a.c("wf",t.c,E(t).toString(),"inactive")]),B(e,"fontactive",t),this.o=!0,$(this)},H.prototype.h=function(t){var e=this.a;if(e.g){var n=f(e.f,e.a.c("wf",t.c,E(t).toString(),"active")),i=[],o=[e.a.c("wf",t.c,E(t).toString(),"loading")];n||i.push(e.a.c("wf",t.c,E(t).toString(),"inactive")),u(e.f,i,o)}B(e,"fontinactive",t),$(this)},G.prototype.load=function(t){this.c=new r(this.j,t.context||this.j),this.g=!1!==t.events,this.f=!1!==t.classes,J(this,new L(this.c,t),t)},Q.prototype.load=function(t){function e(){if(a["__mti_fntLst"+i]){var n,o=a["__mti_fntLst"+i](),s=[];if(o)for(var r=0;r<o.length;r++){var c=o[r].fontfamily;void 0!=o[r].fontStyle&&void 0!=o[r].fontWeight?(n=o[r].fontStyle+o[r].fontWeight,s.push(new j(c,n))):s.push(new j(c))}t(s)}else setTimeout(function(){e()},50)}var n=this,i=n.a.projectId,o=n.a.version;if(i){var a=n.c.m;m(this.c,V(n,i,o),function(o){o?t([]):(a["__MonotypeConfiguration__"+i]=function(){return n.a},e())}).id="__MonotypeAPIScript__"+i}else t([])},X.prototype.load=function(t){var e,n,i=this.a.urls||[],o=this.a.families||[],a=this.a.testStrings||{},s=new v;for(e=0,n=i.length;e<n;e++)p(this.c,i[e],y(s));var r=[];for(e=0,n=o.length;e<n;e++)if(i=o[e].split(":"),i[1])for(var c=i[1].split(","),l=0;l<c.length;l+=1)r.push(new j(i[0],c[l]));else r.push(new j(i[0]));w(s,function(){t(r,a)})};var ut="//fonts.googleapis.com/css",ft={latin:"BESbswy","latin-ext":"çöüğş",cyrillic:"йяЖ",greek:"αβΣ",khmer:"កខគ",Hanuman:"កខគ"},dt={thin:"1",extralight:"2","extra-light":"2",ultralight:"2","ultra-light":"2",light:"3",regular:"4",book:"4",medium:"5","semi-bold":"6",semibold:"6","demi-bold":"6",demibold:"6",bold:"7","extra-bold":"8",extrabold:"8","ultra-bold":"8",ultrabold:"8",black:"9",heavy:"9",l:"3",r:"4",b:"7"},gt={i:"i",italic:"i",n:"n",normal:"n"},pt=/^(thin|(?:(?:extra|ultra)-?)?light|regular|book|medium|(?:(?:semi|demi|extra|ultra)-?)?bold|black|heavy|l|r|b|[1-9]00)?(n|i|normal|italic)?$/,mt={Arimo:!0,Cousine:!0,Tinos:!0};it.prototype.load=function(t){var e=new v,n=this.c,i=new Y(this.a.api,d(n),this.a.text),o=this.a.families;Z(i,o);var a=new et(o);nt(a),p(n,tt(i),y(e)),w(e,function(){t(a.a,a.c,mt)})},ot.prototype.load=function(t){var e=this.a.id,n=this.c.m;e?m(this.c,(this.a.api||"https://use.typekit.net")+"/"+e+".js",function(e){if(e)t([]);else if(n.Typekit&&n.Typekit.config&&n.Typekit.config.fn){e=n.Typekit.config.fn;for(var i=[],o=0;o<e.length;o+=2)for(var a=e[o],s=e[o+1],r=0;r<s.length;r++)i.push(new j(a,s[r]));try{n.Typekit.load({events:!1,classes:!1,async:!0})}catch(t){}t(i)}},2e3):t([])},at.prototype.load=function(t){var e=this.f.id,n=this.c.m,i=this;e?(n.__webfontfontdeckmodule__||(n.__webfontfontdeckmodule__={}),n.__webfontfontdeckmodule__[e]=function(e,n){for(var o=0,a=n.fonts.length;o<a;++o){var s=n.fonts[o];i.a.push(new j(s.name,k("font-weight:"+s.weight+";font-style:"+s.style)))}t(i.a)},m(this.c,d(this.c)+(this.f.api||"//f.fontdeck.com/s/css/js/")+g(this.c)+"/"+e+".js",function(e){e&&t([])})):t([])};var vt=new G(window);vt.a.c.custom=function(t,e){return new X(e,t)},vt.a.c.fontdeck=function(t,e){return new at(e,t)},vt.a.c.monotype=function(t,e){return new Q(e,t)},vt.a.c.typekit=function(t,e){return new ot(e,t)},vt.a.c.google=function(t,e){return new it(e,t)};var yt={load:s(vt.load,vt)};i=function(){return yt}.call(e,n,e,t),!(void 0!==i&&(t.exports=i))}()}]);
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId])
+/******/ 			return installedModules[moduleId].exports;
+
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			exports: {},
+/******/ 			id: moduleId,
+/******/ 			loaded: false
+/******/ 		};
+
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+
+/******/ 		// Flag the module as loaded
+/******/ 		module.loaded = true;
+
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+
+
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(0);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(1);
+	__webpack_require__(2);
+	__webpack_require__(4);
+	module.exports = __webpack_require__(3);
+
+
+/***/ },
+/* 1 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _Colorizer = __webpack_require__(2);
+
+	var _Reader = __webpack_require__(4);
+
+	var _Storage = __webpack_require__(3);
+
+	(function () {
+
+	  document.documentElement.className = 'js';
+
+	  _Colorizer.Colorizer.init();
+	  _Reader.Reader.init();
+	  _Storage.Storage.init();
+
+	  var everythingLoaded = setInterval(function () {
+
+	    if (/loaded|complete/.test(document.readyState)) {
+	      clearInterval(everythingLoaded);
+	      document.getElementById('js-colorizer').classList.add('is-loaded');
+	    }
+	  }, 10);
+	})();
+
+	// webfontloader
+
+	var WebFont = __webpack_require__(5);
+
+	WebFont.load({
+	  custom: {
+	    families: ['Apercu']
+	  }
+	});
+
+	// google analytics
+
+	if (window.location.host === 'colorizer.bantros.net') {
+	  (function (i, s, o, g, r, a, m) {
+	    i['GoogleAnalyticsObject'] = r;i[r] = i[r] || function () {
+	      (i[r].q = i[r].q || []).push(arguments);
+	    }, i[r].l = 1 * new Date();a = s.createElement(o), m = s.getElementsByTagName(o)[0];a.async = 1;a.src = g;m.parentNode.insertBefore(a, m);
+	  })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+	  ga('create', 'UA-25002845-7', 'auto');
+	  ga('send', 'pageview');
+	}
+
+/***/ },
+/* 2 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.Colorizer = undefined;
+
+	var _Storage = __webpack_require__(3);
+
+	var Colorizer = exports.Colorizer = {
+
+	  swatchPanel: document.getElementsByClassName('swatch__panel'),
+	  btnAction: document.getElementsByClassName('btn--action'),
+	  btnSwatch: document.getElementsByClassName('btn--swatch'),
+
+	  hexMultiply: ['15a29c', 'e6625e', '1fde91', '00ffcb', 'f4c7ee', 'fec8be'],
+	  hexLighten: ['293571', '15a29c', '083ea7', '864bff', '008fd3', '20ad65'],
+
+	  init: function init() {
+	    this.render();
+	  },
+	  createSwatchList: function createSwatchList() {
+
+	    for (var i = 0; i < Colorizer.hexMultiply.length; i++) {
+	      document.getElementById('js-swatch__multiply').insertAdjacentHTML('beforeend', '<div class="swatch__item"><button class="btn  btn--swatch" style="background-color:#' + Colorizer.hexMultiply[i] + '" data-blend="multiply" data-color="' + Colorizer.hexMultiply[i] + '"></button></div>');
+	    }
+
+	    for (var _i = 0; _i < Colorizer.hexLighten.length; _i++) {
+	      document.getElementById('js-swatch__lighten').insertAdjacentHTML('beforeend', '<div class="swatch__item"><button class="btn  btn--swatch" style="background-color:#' + Colorizer.hexLighten[_i] + '" data-blend="lighten" data-color="' + Colorizer.hexLighten[_i] + '"></button></div>');
+	    }
+	  },
+	  toggleSwatchOverlay: function toggleSwatchOverlay() {
+
+	    var target = this.dataset.target;
+
+	    // Toggle active class on action btn
+	    for (var i = 0; i < Colorizer.btnAction.length; i++) {
+	      Colorizer.btnAction[i].classList.remove('is-active');
+	    }
+
+	    this.classList.add('is-active');
+
+	    // Open swatch overlay and show selected panel
+	    document.getElementById('js-swatch').classList.add('is-active');
+
+	    for (var _i2 = 0; _i2 < Colorizer.swatchPanel.length; _i2++) {
+	      Colorizer.swatchPanel[_i2].style.setProperty('display', 'none');
+	    }
+
+	    if (target === 'multiply') {
+	      document.getElementById('js-swatch__multiply').style.setProperty('display', 'flex');
+	    } else if (target === 'lighten') {
+	      document.getElementById('js-swatch__lighten').style.setProperty('display', 'flex');
+	    }
+	  },
+	  updateBlendMode: function updateBlendMode() {
+
+	    var blend = this.dataset.blend;
+	    var color = this.dataset.color;
+
+	    if (blend === 'multiply') {
+	      document.documentElement.style.setProperty('--blend-multiply', '#' + color);
+	      // document.getElementById('js-code__multiply').innerHTML = '.colorizer::before {\n\xa0 z-index: 2250;\n\xa0 background-color: #'+ color +';\n\xa0 mix-blend-mode: multiply;\n\}';
+	    } else if (blend === 'lighten') {
+	      document.documentElement.style.setProperty('--blend-lighten', '#' + color);
+	      // document.getElementById('js-code__lighten').innerHTML = '.colorizer::before {\n\xa0 z-index: 2500;\n\xa0 background-color: #'+ color +';\n\xa0 mix-blend-mode: lighten;\n\}';
+	    }
+
+	    _Storage.Storage.savePalette(blend, color);
+	  },
+	  render: function render() {
+
+	    // Create color swatches
+	    Colorizer.createSwatchList();
+
+	    // Open swatch list
+	    for (var i = 0; i < Colorizer.btnAction.length; i++) {
+	      Colorizer.btnAction[i].addEventListener('click', Colorizer.toggleSwatchOverlay, false);
+	    }
+
+	    // Click swatch to update blend modes
+	    for (var _i3 = 0; _i3 < Colorizer.btnSwatch.length; _i3++) {
+	      Colorizer.btnSwatch[_i3].addEventListener('click', Colorizer.updateBlendMode, false);
+	    }
+	  }
+	};
+
+/***/ },
+/* 3 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var Storage = exports.Storage = {
+
+	  blendMultiply: localStorage.getItem('blendMultiply'),
+	  blendLighten: localStorage.getItem('blendLighten'),
+	  userImage: localStorage.getItem('userImage'),
+	  colorizerImage: document.getElementById('js-colorizer__image'),
+
+	  init: function init() {
+	    this.render();
+	  },
+	  savePalette: function savePalette(blend, color) {
+
+	    if (blend === 'multiply') {
+	      localStorage.setItem('blendMultiply', color);
+	    } else if (blend === 'lighten') {
+	      localStorage.setItem('blendLighten', color);
+	    }
+	  },
+	  handleImage: function handleImage(result) {
+
+	    localStorage.setItem('userImage', result);
+	  },
+	  render: function render() {
+
+	    if (Storage.blendMultiply) {
+	      document.documentElement.style.setProperty('--blend-multiply', '#' + Storage.blendMultiply);
+	    }
+
+	    if (Storage.blendLighten) {
+	      document.documentElement.style.setProperty('--blend-lighten', '#' + Storage.blendLighten);
+	    }
+
+	    if (Storage.userImage) {
+	      Storage.colorizerImage.src = Storage.userImage;
+	    } else {
+	      Storage.colorizerImage.src = '/assets/images/placeholder.jpg';
+	    }
+	  }
+	};
+
+/***/ },
+/* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.Reader = undefined;
+
+	var _Storage = __webpack_require__(3);
+
+	var Reader = exports.Reader = {
+
+	  input: document.getElementById('js-input__file'),
+	  image: document.getElementById('js-colorizer__image'),
+
+	  init: function init() {
+	    this.render();
+	  },
+	  handleFileUpload: function handleFileUpload() {
+
+	    var fileReader = void 0,
+	        file = void 0,
+	        result = void 0;
+
+	    fileReader = new FileReader();
+	    file = Reader.input.files[0];
+
+	    if (file.name.match(/\.(jpg|jpeg|png|gif)$/)) {
+	      fileReader.readAsDataURL(file);
+	    } else {
+	      console.log('File selected not a valid image');
+	    }
+
+	    fileReader.addEventListener('load', function () {
+
+	      result = fileReader.result;
+	      Reader.image.src = result;
+
+	      _Storage.Storage.handleImage(result);
+	    }, false);
+	  },
+	  render: function render() {
+
+	    Reader.input.addEventListener('change', Reader.handleFileUpload, false);
+	  }
+	};
+
+/***/ },
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
+
+	/* Web Font Loader v1.6.26 - (c) Adobe Systems, Google. License: Apache 2.0 */(function () {
+	  function aa(a, b, c) {
+	    return a.call.apply(a.bind, arguments);
+	  }function ba(a, b, c) {
+	    if (!a) throw Error();if (2 < arguments.length) {
+	      var d = Array.prototype.slice.call(arguments, 2);return function () {
+	        var c = Array.prototype.slice.call(arguments);Array.prototype.unshift.apply(c, d);return a.apply(b, c);
+	      };
+	    }return function () {
+	      return a.apply(b, arguments);
+	    };
+	  }function p(a, b, c) {
+	    p = Function.prototype.bind && -1 != Function.prototype.bind.toString().indexOf("native code") ? aa : ba;return p.apply(null, arguments);
+	  }var q = Date.now || function () {
+	    return +new Date();
+	  };function ca(a, b) {
+	    this.a = a;this.m = b || a;this.c = this.m.document;
+	  }var da = !!window.FontFace;function t(a, b, c, d) {
+	    b = a.c.createElement(b);if (c) for (var e in c) {
+	      c.hasOwnProperty(e) && ("style" == e ? b.style.cssText = c[e] : b.setAttribute(e, c[e]));
+	    }d && b.appendChild(a.c.createTextNode(d));return b;
+	  }function u(a, b, c) {
+	    a = a.c.getElementsByTagName(b)[0];a || (a = document.documentElement);a.insertBefore(c, a.lastChild);
+	  }function v(a) {
+	    a.parentNode && a.parentNode.removeChild(a);
+	  }
+	  function w(a, b, c) {
+	    b = b || [];c = c || [];for (var d = a.className.split(/\s+/), e = 0; e < b.length; e += 1) {
+	      for (var f = !1, g = 0; g < d.length; g += 1) {
+	        if (b[e] === d[g]) {
+	          f = !0;break;
+	        }
+	      }f || d.push(b[e]);
+	    }b = [];for (e = 0; e < d.length; e += 1) {
+	      f = !1;for (g = 0; g < c.length; g += 1) {
+	        if (d[e] === c[g]) {
+	          f = !0;break;
+	        }
+	      }f || b.push(d[e]);
+	    }a.className = b.join(" ").replace(/\s+/g, " ").replace(/^\s+|\s+$/, "");
+	  }function y(a, b) {
+	    for (var c = a.className.split(/\s+/), d = 0, e = c.length; d < e; d++) {
+	      if (c[d] == b) return !0;
+	    }return !1;
+	  }
+	  function z(a) {
+	    if ("string" === typeof a.f) return a.f;var b = a.m.location.protocol;"about:" == b && (b = a.a.location.protocol);return "https:" == b ? "https:" : "http:";
+	  }function ea(a) {
+	    return a.m.location.hostname || a.a.location.hostname;
+	  }
+	  function A(a, b, c) {
+	    function d() {
+	      k && e && f && (k(g), k = null);
+	    }b = t(a, "link", { rel: "stylesheet", href: b, media: "all" });var e = !1,
+	        f = !0,
+	        g = null,
+	        k = c || null;da ? (b.onload = function () {
+	      e = !0;d();
+	    }, b.onerror = function () {
+	      e = !0;g = Error("Stylesheet failed to load");d();
+	    }) : setTimeout(function () {
+	      e = !0;d();
+	    }, 0);u(a, "head", b);
+	  }
+	  function B(a, b, c, d) {
+	    var e = a.c.getElementsByTagName("head")[0];if (e) {
+	      var f = t(a, "script", { src: b }),
+	          g = !1;f.onload = f.onreadystatechange = function () {
+	        g || this.readyState && "loaded" != this.readyState && "complete" != this.readyState || (g = !0, c && c(null), f.onload = f.onreadystatechange = null, "HEAD" == f.parentNode.tagName && e.removeChild(f));
+	      };e.appendChild(f);setTimeout(function () {
+	        g || (g = !0, c && c(Error("Script load timeout")));
+	      }, d || 5E3);return f;
+	    }return null;
+	  };function C() {
+	    this.a = 0;this.c = null;
+	  }function D(a) {
+	    a.a++;return function () {
+	      a.a--;E(a);
+	    };
+	  }function F(a, b) {
+	    a.c = b;E(a);
+	  }function E(a) {
+	    0 == a.a && a.c && (a.c(), a.c = null);
+	  };function G(a) {
+	    this.a = a || "-";
+	  }G.prototype.c = function (a) {
+	    for (var b = [], c = 0; c < arguments.length; c++) {
+	      b.push(arguments[c].replace(/[\W_]+/g, "").toLowerCase());
+	    }return b.join(this.a);
+	  };function H(a, b) {
+	    this.c = a;this.f = 4;this.a = "n";var c = (b || "n4").match(/^([nio])([1-9])$/i);c && (this.a = c[1], this.f = parseInt(c[2], 10));
+	  }function fa(a) {
+	    return I(a) + " " + (a.f + "00") + " 300px " + J(a.c);
+	  }function J(a) {
+	    var b = [];a = a.split(/,\s*/);for (var c = 0; c < a.length; c++) {
+	      var d = a[c].replace(/['"]/g, "");-1 != d.indexOf(" ") || /^\d/.test(d) ? b.push("'" + d + "'") : b.push(d);
+	    }return b.join(",");
+	  }function K(a) {
+	    return a.a + a.f;
+	  }function I(a) {
+	    var b = "normal";"o" === a.a ? b = "oblique" : "i" === a.a && (b = "italic");return b;
+	  }
+	  function ga(a) {
+	    var b = 4,
+	        c = "n",
+	        d = null;a && ((d = a.match(/(normal|oblique|italic)/i)) && d[1] && (c = d[1].substr(0, 1).toLowerCase()), (d = a.match(/([1-9]00|normal|bold)/i)) && d[1] && (/bold/i.test(d[1]) ? b = 7 : /[1-9]00/.test(d[1]) && (b = parseInt(d[1].substr(0, 1), 10))));return c + b;
+	  };function ha(a, b) {
+	    this.c = a;this.f = a.m.document.documentElement;this.h = b;this.a = new G("-");this.j = !1 !== b.events;this.g = !1 !== b.classes;
+	  }function ia(a) {
+	    a.g && w(a.f, [a.a.c("wf", "loading")]);L(a, "loading");
+	  }function M(a) {
+	    if (a.g) {
+	      var b = y(a.f, a.a.c("wf", "active")),
+	          c = [],
+	          d = [a.a.c("wf", "loading")];b || c.push(a.a.c("wf", "inactive"));w(a.f, c, d);
+	    }L(a, "inactive");
+	  }function L(a, b, c) {
+	    if (a.j && a.h[b]) if (c) a.h[b](c.c, K(c));else a.h[b]();
+	  };function ja() {
+	    this.c = {};
+	  }function ka(a, b, c) {
+	    var d = [],
+	        e;for (e in b) {
+	      if (b.hasOwnProperty(e)) {
+	        var f = a.c[e];f && d.push(f(b[e], c));
+	      }
+	    }return d;
+	  };function N(a, b) {
+	    this.c = a;this.f = b;this.a = t(this.c, "span", { "aria-hidden": "true" }, this.f);
+	  }function O(a) {
+	    u(a.c, "body", a.a);
+	  }function P(a) {
+	    return "display:block;position:absolute;top:-9999px;left:-9999px;font-size:300px;width:auto;height:auto;line-height:normal;margin:0;padding:0;font-variant:normal;white-space:nowrap;font-family:" + J(a.c) + ";" + ("font-style:" + I(a) + ";font-weight:" + (a.f + "00") + ";");
+	  };function Q(a, b, c, d, e, f) {
+	    this.g = a;this.j = b;this.a = d;this.c = c;this.f = e || 3E3;this.h = f || void 0;
+	  }Q.prototype.start = function () {
+	    var a = this.c.m.document,
+	        b = this,
+	        c = q(),
+	        d = new Promise(function (d, e) {
+	      function k() {
+	        q() - c >= b.f ? e() : a.fonts.load(fa(b.a), b.h).then(function (a) {
+	          1 <= a.length ? d() : setTimeout(k, 25);
+	        }, function () {
+	          e();
+	        });
+	      }k();
+	    }),
+	        e = new Promise(function (a, d) {
+	      setTimeout(d, b.f);
+	    });Promise.race([e, d]).then(function () {
+	      b.g(b.a);
+	    }, function () {
+	      b.j(b.a);
+	    });
+	  };function R(a, b, c, d, e, f, g) {
+	    this.v = a;this.B = b;this.c = c;this.a = d;this.s = g || "BESbswy";this.f = {};this.w = e || 3E3;this.u = f || null;this.o = this.j = this.h = this.g = null;this.g = new N(this.c, this.s);this.h = new N(this.c, this.s);this.j = new N(this.c, this.s);this.o = new N(this.c, this.s);a = new H(this.a.c + ",serif", K(this.a));a = P(a);this.g.a.style.cssText = a;a = new H(this.a.c + ",sans-serif", K(this.a));a = P(a);this.h.a.style.cssText = a;a = new H("serif", K(this.a));a = P(a);this.j.a.style.cssText = a;a = new H("sans-serif", K(this.a));a = P(a);this.o.a.style.cssText = a;O(this.g);O(this.h);O(this.j);O(this.o);
+	  }var S = { D: "serif", C: "sans-serif" },
+	      T = null;function U() {
+	    if (null === T) {
+	      var a = /AppleWebKit\/([0-9]+)(?:\.([0-9]+))/.exec(window.navigator.userAgent);T = !!a && (536 > parseInt(a[1], 10) || 536 === parseInt(a[1], 10) && 11 >= parseInt(a[2], 10));
+	    }return T;
+	  }R.prototype.start = function () {
+	    this.f.serif = this.j.a.offsetWidth;this.f["sans-serif"] = this.o.a.offsetWidth;this.A = q();la(this);
+	  };
+	  function ma(a, b, c) {
+	    for (var d in S) {
+	      if (S.hasOwnProperty(d) && b === a.f[S[d]] && c === a.f[S[d]]) return !0;
+	    }return !1;
+	  }function la(a) {
+	    var b = a.g.a.offsetWidth,
+	        c = a.h.a.offsetWidth,
+	        d;(d = b === a.f.serif && c === a.f["sans-serif"]) || (d = U() && ma(a, b, c));d ? q() - a.A >= a.w ? U() && ma(a, b, c) && (null === a.u || a.u.hasOwnProperty(a.a.c)) ? V(a, a.v) : V(a, a.B) : na(a) : V(a, a.v);
+	  }function na(a) {
+	    setTimeout(p(function () {
+	      la(this);
+	    }, a), 50);
+	  }function V(a, b) {
+	    setTimeout(p(function () {
+	      v(this.g.a);v(this.h.a);v(this.j.a);v(this.o.a);b(this.a);
+	    }, a), 0);
+	  };function W(a, b, c) {
+	    this.c = a;this.a = b;this.f = 0;this.o = this.j = !1;this.s = c;
+	  }var X = null;W.prototype.g = function (a) {
+	    var b = this.a;b.g && w(b.f, [b.a.c("wf", a.c, K(a).toString(), "active")], [b.a.c("wf", a.c, K(a).toString(), "loading"), b.a.c("wf", a.c, K(a).toString(), "inactive")]);L(b, "fontactive", a);this.o = !0;oa(this);
+	  };
+	  W.prototype.h = function (a) {
+	    var b = this.a;if (b.g) {
+	      var c = y(b.f, b.a.c("wf", a.c, K(a).toString(), "active")),
+	          d = [],
+	          e = [b.a.c("wf", a.c, K(a).toString(), "loading")];c || d.push(b.a.c("wf", a.c, K(a).toString(), "inactive"));w(b.f, d, e);
+	    }L(b, "fontinactive", a);oa(this);
+	  };function oa(a) {
+	    0 == --a.f && a.j && (a.o ? (a = a.a, a.g && w(a.f, [a.a.c("wf", "active")], [a.a.c("wf", "loading"), a.a.c("wf", "inactive")]), L(a, "active")) : M(a.a));
+	  };function pa(a) {
+	    this.j = a;this.a = new ja();this.h = 0;this.f = this.g = !0;
+	  }pa.prototype.load = function (a) {
+	    this.c = new ca(this.j, a.context || this.j);this.g = !1 !== a.events;this.f = !1 !== a.classes;qa(this, new ha(this.c, a), a);
+	  };
+	  function ra(a, b, c, d, e) {
+	    var f = 0 == --a.h;(a.f || a.g) && setTimeout(function () {
+	      var a = e || null,
+	          k = d || null || {};if (0 === c.length && f) M(b.a);else {
+	        b.f += c.length;f && (b.j = f);var h,
+	            m = [];for (h = 0; h < c.length; h++) {
+	          var l = c[h],
+	              n = k[l.c],
+	              r = b.a,
+	              x = l;r.g && w(r.f, [r.a.c("wf", x.c, K(x).toString(), "loading")]);L(r, "fontloading", x);r = null;null === X && (X = window.FontFace ? (x = /Gecko.*Firefox\/(\d+)/.exec(window.navigator.userAgent)) ? 42 < parseInt(x[1], 10) : !0 : !1);X ? r = new Q(p(b.g, b), p(b.h, b), b.c, l, b.s, n) : r = new R(p(b.g, b), p(b.h, b), b.c, l, b.s, a, n);m.push(r);
+	        }for (h = 0; h < m.length; h++) {
+	          m[h].start();
+	        }
+	      }
+	    }, 0);
+	  }function qa(a, b, c) {
+	    var d = [],
+	        e = c.timeout;ia(b);var d = ka(a.a, c, a.c),
+	        f = new W(a.c, b, e);a.h = d.length;b = 0;for (c = d.length; b < c; b++) {
+	      d[b].load(function (b, d, c) {
+	        ra(a, f, b, d, c);
+	      });
+	    }
+	  };function sa(a, b) {
+	    this.c = a;this.a = b;
+	  }function ta(a, b, c) {
+	    var d = z(a.c);a = (a.a.api || "fast.fonts.net/jsapi").replace(/^.*http(s?):(\/\/)?/, "");return d + "//" + a + "/" + b + ".js" + (c ? "?v=" + c : "");
+	  }
+	  sa.prototype.load = function (a) {
+	    function b() {
+	      if (f["__mti_fntLst" + d]) {
+	        var c = f["__mti_fntLst" + d](),
+	            e = [],
+	            h;if (c) for (var m = 0; m < c.length; m++) {
+	          var l = c[m].fontfamily;void 0 != c[m].fontStyle && void 0 != c[m].fontWeight ? (h = c[m].fontStyle + c[m].fontWeight, e.push(new H(l, h))) : e.push(new H(l));
+	        }a(e);
+	      } else setTimeout(function () {
+	        b();
+	      }, 50);
+	    }var c = this,
+	        d = c.a.projectId,
+	        e = c.a.version;if (d) {
+	      var f = c.c.m;B(this.c, ta(c, d, e), function (e) {
+	        e ? a([]) : (f["__MonotypeConfiguration__" + d] = function () {
+	          return c.a;
+	        }, b());
+	      }).id = "__MonotypeAPIScript__" + d;
+	    } else a([]);
+	  };function ua(a, b) {
+	    this.c = a;this.a = b;
+	  }ua.prototype.load = function (a) {
+	    var b,
+	        c,
+	        d = this.a.urls || [],
+	        e = this.a.families || [],
+	        f = this.a.testStrings || {},
+	        g = new C();b = 0;for (c = d.length; b < c; b++) {
+	      A(this.c, d[b], D(g));
+	    }var k = [];b = 0;for (c = e.length; b < c; b++) {
+	      if (d = e[b].split(":"), d[1]) for (var h = d[1].split(","), m = 0; m < h.length; m += 1) {
+	        k.push(new H(d[0], h[m]));
+	      } else k.push(new H(d[0]));
+	    }F(g, function () {
+	      a(k, f);
+	    });
+	  };function va(a, b, c) {
+	    a ? this.c = a : this.c = b + wa;this.a = [];this.f = [];this.g = c || "";
+	  }var wa = "//fonts.googleapis.com/css";function xa(a, b) {
+	    for (var c = b.length, d = 0; d < c; d++) {
+	      var e = b[d].split(":");3 == e.length && a.f.push(e.pop());var f = "";2 == e.length && "" != e[1] && (f = ":");a.a.push(e.join(f));
+	    }
+	  }
+	  function ya(a) {
+	    if (0 == a.a.length) throw Error("No fonts to load!");if (-1 != a.c.indexOf("kit=")) return a.c;for (var b = a.a.length, c = [], d = 0; d < b; d++) {
+	      c.push(a.a[d].replace(/ /g, "+"));
+	    }b = a.c + "?family=" + c.join("%7C");0 < a.f.length && (b += "&subset=" + a.f.join(","));0 < a.g.length && (b += "&text=" + encodeURIComponent(a.g));return b;
+	  };function za(a) {
+	    this.f = a;this.a = [];this.c = {};
+	  }
+	  var Aa = { latin: "BESbswy", "latin-ext": "\xE7\xF6\xFC\u011F\u015F", cyrillic: "\u0439\u044F\u0416", greek: "\u03B1\u03B2\u03A3", khmer: "\u1780\u1781\u1782", Hanuman: "\u1780\u1781\u1782" },
+	      Ba = { thin: "1", extralight: "2", "extra-light": "2", ultralight: "2", "ultra-light": "2", light: "3", regular: "4", book: "4", medium: "5", "semi-bold": "6", semibold: "6", "demi-bold": "6", demibold: "6", bold: "7", "extra-bold": "8", extrabold: "8", "ultra-bold": "8", ultrabold: "8", black: "9", heavy: "9", l: "3", r: "4", b: "7" },
+	      Ca = { i: "i", italic: "i", n: "n", normal: "n" },
+	      Da = /^(thin|(?:(?:extra|ultra)-?)?light|regular|book|medium|(?:(?:semi|demi|extra|ultra)-?)?bold|black|heavy|l|r|b|[1-9]00)?(n|i|normal|italic)?$/;
+	  function Ea(a) {
+	    for (var b = a.f.length, c = 0; c < b; c++) {
+	      var d = a.f[c].split(":"),
+	          e = d[0].replace(/\+/g, " "),
+	          f = ["n4"];if (2 <= d.length) {
+	        var g;var k = d[1];g = [];if (k) for (var k = k.split(","), h = k.length, m = 0; m < h; m++) {
+	          var l;l = k[m];if (l.match(/^[\w-]+$/)) {
+	            var n = Da.exec(l.toLowerCase());if (null == n) l = "";else {
+	              l = n[2];l = null == l || "" == l ? "n" : Ca[l];n = n[1];if (null == n || "" == n) n = "4";else var r = Ba[n],
+	                  n = r ? r : isNaN(n) ? "4" : n.substr(0, 1);l = [l, n].join("");
+	            }
+	          } else l = "";l && g.push(l);
+	        }0 < g.length && (f = g);3 == d.length && (d = d[2], g = [], d = d ? d.split(",") : g, 0 < d.length && (d = Aa[d[0]]) && (a.c[e] = d));
+	      }a.c[e] || (d = Aa[e]) && (a.c[e] = d);for (d = 0; d < f.length; d += 1) {
+	        a.a.push(new H(e, f[d]));
+	      }
+	    }
+	  };function Fa(a, b) {
+	    this.c = a;this.a = b;
+	  }var Ga = { Arimo: !0, Cousine: !0, Tinos: !0 };Fa.prototype.load = function (a) {
+	    var b = new C(),
+	        c = this.c,
+	        d = new va(this.a.api, z(c), this.a.text),
+	        e = this.a.families;xa(d, e);var f = new za(e);Ea(f);A(c, ya(d), D(b));F(b, function () {
+	      a(f.a, f.c, Ga);
+	    });
+	  };function Ha(a, b) {
+	    this.c = a;this.a = b;
+	  }Ha.prototype.load = function (a) {
+	    var b = this.a.id,
+	        c = this.c.m;b ? B(this.c, (this.a.api || "https://use.typekit.net") + "/" + b + ".js", function (b) {
+	      if (b) a([]);else if (c.Typekit && c.Typekit.config && c.Typekit.config.fn) {
+	        b = c.Typekit.config.fn;for (var e = [], f = 0; f < b.length; f += 2) {
+	          for (var g = b[f], k = b[f + 1], h = 0; h < k.length; h++) {
+	            e.push(new H(g, k[h]));
+	          }
+	        }try {
+	          c.Typekit.load({ events: !1, classes: !1, async: !0 });
+	        } catch (m) {}a(e);
+	      }
+	    }, 2E3) : a([]);
+	  };function Ia(a, b) {
+	    this.c = a;this.f = b;this.a = [];
+	  }Ia.prototype.load = function (a) {
+	    var b = this.f.id,
+	        c = this.c.m,
+	        d = this;b ? (c.__webfontfontdeckmodule__ || (c.__webfontfontdeckmodule__ = {}), c.__webfontfontdeckmodule__[b] = function (b, c) {
+	      for (var g = 0, k = c.fonts.length; g < k; ++g) {
+	        var h = c.fonts[g];d.a.push(new H(h.name, ga("font-weight:" + h.weight + ";font-style:" + h.style)));
+	      }a(d.a);
+	    }, B(this.c, z(this.c) + (this.f.api || "//f.fontdeck.com/s/css/js/") + ea(this.c) + "/" + b + ".js", function (b) {
+	      b && a([]);
+	    })) : a([]);
+	  };var Y = new pa(window);Y.a.c.custom = function (a, b) {
+	    return new ua(b, a);
+	  };Y.a.c.fontdeck = function (a, b) {
+	    return new Ia(b, a);
+	  };Y.a.c.monotype = function (a, b) {
+	    return new sa(b, a);
+	  };Y.a.c.typekit = function (a, b) {
+	    return new Ha(b, a);
+	  };Y.a.c.google = function (a, b) {
+	    return new Fa(b, a);
+	  };var Z = { load: p(Y.load, Y) }; true ? !(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
+	    return Z;
+	  }.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : "undefined" !== typeof module && module.exports ? module.exports = Z : (window.WebFont = Z, window.WebFontConfig && Y.load(window.WebFontConfig));
+	})();
+
+/***/ }
+/******/ ]);

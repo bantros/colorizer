@@ -39,6 +39,8 @@ export const Storage = {
 
     if (Storage.userImage) {
       Storage.colorizerImage.src = Storage.userImage;
+    } else {
+      Storage.colorizerImage.src = '/assets/images/placeholder.jpg';
     }
 
   }

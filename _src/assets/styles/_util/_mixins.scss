@@ -1,20 +1,27 @@
-// Converts px to rem
-// http://css-tricks.com/snippets/css/less-mixin-for-rem-font-sizing/
+// placeholder text
+// https://github.com/michaelsacca/Compass-Placeholder-Text-Mixin
 
-@mixin rem($size-value: 16) {
-  font-size:  $size-value + px;
-  font-size: ($size-value / 16) + rem;
+@mixin placeholder($color) {
+  &::-webkit-input-placeholder {
+    color: $color;
+  }
+  &:-ms-input-placeholder {
+    color: $color;
+  }
+  &::-moz-placeholder {
+    color: $color;
+    opacity: 1;
+  }
+  &:-moz-placeholder {
+    color: $color;
+    opacity: 1;
+  }
+  &.placeholder {
+    color: $color;
+  }
 }
 
-// Converts px to em
-// https://gist.github.com/ijy/1441967
-
-@function em($target, $context: 16px) {
-  @if $target == 0 { @return 0 }
-  @return $target / $context + 0em;
-}
-
-// Keyframes and animation
+// keyframes and animation
 
 @mixin keyframes($name) {
   @-webkit-keyframes #{$name} {
@@ -43,36 +50,4 @@
      -moz-animation-delay: #{$animation-delay};
       -ms-animation-delay: #{$animation-delay};
           animation-delay: #{$animation-delay};
-}
-
-// Opacity with IE filter fallback
-// https://gist.github.com/jgv/745754
-
-@mixin opacity($trans: 0) {
-  opacity: $trans;
-  -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=#{$trans * 100})';
-  filter: alpha(opacity=($trans * 100));
-}
-
-// Placeholder text
-// https://github.com/michaelsacca/Compass-Placeholder-Text-Mixin
-
-@mixin placeholder($color) {
-  &::-webkit-input-placeholder {
-    color: $color;
-  }
-  &:-ms-input-placeholder {
-    color: $color;
-  }
-  &::-moz-placeholder {
-    color: $color;
-    opacity: 1;
-  }
-  &:-moz-placeholder {
-    color: $color;
-    opacity: 1;
-  }
-  &.placeholder {
-    color: $color;
-  }
 }

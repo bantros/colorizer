@@ -6,7 +6,6 @@
   display: flex;
   width: 6.25em;
   height: 100vh;
-  // box-shadow: -6px 6px 12px rgba(0,0,0,0.25);
   transform: translateX(100%);
   transition: transform 300ms ease-in-out;
 }
@@ -18,17 +17,15 @@
 .swatch__content {
   display: flex;
   width: 100%;
+  padding-top: 1.563em;
+  padding-bottom: 1.563em;
 }
 
 .swatch__panel {
-  display: flex;
+  display: none;
   flex-direction: column;
   width: 100%;
   flex: 1 0 auto;
-}
-
-.swatch__panel:last-child {
-  display: none;
 }
 
 .swatch__item {
@@ -36,5 +33,6 @@
   flex: 1 0 auto;
   align-items: center;
   justify-content: center;
-  padding: 1.563em;
+  padding-left: 1.563em;
+  padding-right: 1.563em;
 }
