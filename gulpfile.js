@@ -1,9 +1,8 @@
 // load plugins
 
-var gulp = require('gulp');
 var browserSync = require('browser-sync');
 var fs = require('fs');
-var webpack = require('webpack-stream');
+var gulp = require('gulp');
 var autoprefixer = require('gulp-autoprefixer');
 var clean = require('gulp-clean');
 var cleanCSS = require('gulp-clean-css');
@@ -12,34 +11,29 @@ var htmlmin = require('gulp-htmlmin');
 var jshint = require('gulp-jshint');
 var notify = require('gulp-notify');
 var plumber = require('gulp-plumber');
+var prettify = require('gulp-prettify');
 var replace = require('gulp-replace');
 var runSequence = require('run-sequence');
 var sass = require('gulp-ruby-sass');
 var twig = require('gulp-twig');
 var uglify = require('gulp-uglify');
 var util = require('gulp-util');
+var webpack = require('webpack-stream');
 
 var path = {
   src: './_src',
   build: './_build',
   css: '/assets/styles',
-  js: '/assets/scripts'
+  js: '/assets/scripts',
+  proxy: 'colorizer.dev'
 };
-
-// autoprefixer
-
-var browsers = [
-  'last 2 versions',
-  'ie 10',
-  'ios 7'
-];
 
 // browserSync
 
 gulp.task('browserSync', function() {
 
   browserSync({
-    proxy: 'colorizer.dev',
+    proxy: path.proxy,
     notify: false
   });
 
@@ -55,9 +49,9 @@ var onError = function(err) {
 // styles
 
 gulp.task('styles', function() {
-  return sass(path.src + path.css + '/*.scss', { style: 'expanded' })
+  return sass(path.src + path.css + '/**/*.scss', { style: 'expanded' })
     .pipe(plumber({ errorHandler: onError }))
-    .pipe(autoprefixer(browsers))
+    .pipe(autoprefixer(['last 2 versions']))
     .pipe(gcmq())
     .pipe(util.env.production ? cleanCSS() : util.noop())
     .pipe(gulp.dest(path.build + path.css))
@@ -92,9 +86,10 @@ gulp.task('scripts', function() {
 // twig
 
 gulp.task('twig', function() {
-  return gulp.src(path.src + '/*.html')
+  return gulp.src(path.src + '/**/index.html')
     .pipe(plumber({ errorHandler: onError }))
     .pipe(twig())
+    .pipe(!util.env.production ? prettify({ indent_inner_html: true }) : util.noop())
     .pipe(util.env.production ? replace(/<link rel="stylesheet" href="\/assets\/styles\/main.css"[^>]*>/, function(s) {
       var style = fs.readFileSync(path.build + path.css + '/main.css', 'utf8');
       return '<style>\n' + style + '\n</style>';

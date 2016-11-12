@@ -4,12 +4,9 @@ import { Storage } from './Storage';
 
 export const Colorizer = {
 
-  swatchPanel  : document.getElementsByClassName('swatch__panel'),
-  btnAction    : document.getElementsByClassName('btn--action'),
-  btnSwatch    : document.getElementsByClassName('btn--swatch'),
-
-  hexMultiply  : ['15a29c', 'e6625e', '1fde91', '00ffcb', 'f4c7ee', 'fec8be'],
-  hexLighten   : ['293571', '15a29c', '083ea7', '864bff', '008fd3', '20ad65'],
+  btnAction   : document.getElementsByClassName('btn--action'),
+  btnSwatch   : document.getElementsByClassName('btn--swatch'),
+  inputColor  : document.getElementsByClassName('input__color'),
 
   init() {
     this.render();
@@ -17,56 +14,46 @@ export const Colorizer = {
 
   createSwatchList() {
 
-    for (let i = 0; i < Colorizer.hexMultiply.length; i++) {
-      document.getElementById('js-swatch__multiply').insertAdjacentHTML('beforeend', '<div class="swatch__item"><button class="btn  btn--swatch" style="background-color:#'+ Colorizer.hexMultiply[i] +'" data-blend="multiply" data-color="'+ Colorizer.hexMultiply[i] +'"></button></div>');
-    }
+    // if (Storage.paletteM) {
 
-    for (let i = 0; i < Colorizer.hexLighten.length; i++) {
-      document.getElementById('js-swatch__lighten').insertAdjacentHTML('beforeend', '<div class="swatch__item"><button class="btn  btn--swatch" style="background-color:#'+ Colorizer.hexLighten[i] +'" data-blend="lighten" data-color="'+ Colorizer.hexLighten[i] +'"></button></div>');
-    }
+      // let paletteM = JSON.parse(localStorage.getItem('paletteM'));
+      //
+      // document.getElementById('js-swatch__multiply').innerHTML = '';
+      //
+      // for (let i = 0; i < paletteM.length; i++) {
+      //   document.getElementById('js-swatch__multiply').insertAdjacentHTML('beforeend', '<div class="swatch__item"><button class="btn  btn--swatch" style="background-color:#'+ paletteM[i] +'" data-blend="multiply" data-color="'+ paletteM[i] +'"></button></div>');
+      // }
 
-  },
+    let palette = Storage.palette;
 
-  toggleSwatchOverlay() {
+    function shuffle(obj) {
+    	for (var j, x, i = obj.length; i; j = parseInt(Math.random() * i), x = obj[--i], obj[i] = obj[j], obj[j] = x);
+    	return obj;
+    };
 
-    let target = this.dataset.target;
+    shuffle(palette);
 
-    // Toggle active class on action btn
-    for (let i = 0; i < Colorizer.btnAction.length; i++) {
-      Colorizer.btnAction[i].classList.remove('is-active');
-    }
-
-    this.classList.add('is-active');
-
-    // Open swatch overlay and show selected panel
-    document.getElementById('js-swatch').classList.add('is-active');
-
-    for (let i = 0; i < Colorizer.swatchPanel.length; i++) {
-      Colorizer.swatchPanel[i].style.setProperty('display', 'none');
-    }
-
-    if (target === 'multiply') {
-      document.getElementById('js-swatch__multiply').style.setProperty('display', 'flex');
-    } else if (target === 'lighten') {
-      document.getElementById('js-swatch__lighten').style.setProperty('display', 'flex');
+    for (let i = 0; i < 6; i++) {
+      document.getElementById('js-swatch__panel').insertAdjacentHTML('beforeend', '<div class="swatch__item"><button class="btn  btn--swatch" style="color:#'+ palette[i].lighten +'; background-color:#'+ palette[i].multiply +'" data-multiply="'+ palette[i].multiply +'" data-lighten="'+ palette[i].lighten +'"></button></div>');
     }
 
   },
 
   updateBlendMode() {
 
-    let blend = this.dataset.blend;
-    let color = this.dataset.color;
+    let multiply = this.dataset.multiply;
+    let lighten = this.dataset.lighten;
 
-    if (blend === 'multiply') {
-      document.documentElement.style.setProperty('--blend-multiply', '#' + color);
-      // document.getElementById('js-code__multiply').innerHTML = '.colorizer::before {\n\xa0 z-index: 2250;\n\xa0 background-color: #'+ color +';\n\xa0 mix-blend-mode: multiply;\n\}';
-    } else if (blend === 'lighten') {
-      document.documentElement.style.setProperty('--blend-lighten', '#' + color);
-      // document.getElementById('js-code__lighten').innerHTML = '.colorizer::before {\n\xa0 z-index: 2500;\n\xa0 background-color: #'+ color +';\n\xa0 mix-blend-mode: lighten;\n\}';
+    document.documentElement.style.setProperty('--blend-multiply', '#' + multiply);
+    document.documentElement.style.setProperty('--blend-lighten', '#' + lighten);
+
+    for (let i = 0; i < Colorizer.btnSwatch.length; i++) {
+      Colorizer.btnSwatch[i].classList.remove('is-active');
     }
 
-    Storage.savePalette(blend, color);
+    this.classList.add('is-active');
+
+    Storage.savePalette(multiply, lighten);
 
   },
 
@@ -74,11 +61,6 @@ export const Colorizer = {
 
     // Create color swatches
     Colorizer.createSwatchList();
-
-    // Open swatch list
-    for (let i = 0; i < Colorizer.btnAction.length; i++) {
-      Colorizer.btnAction[i].addEventListener('click', Colorizer.toggleSwatchOverlay, false);
-    }
 
     // Click swatch to update blend modes
     for (let i = 0; i < Colorizer.btnSwatch.length; i++) {

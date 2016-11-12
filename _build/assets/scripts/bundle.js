@@ -116,78 +116,62 @@
 
 	var Colorizer = exports.Colorizer = {
 
-	  swatchPanel: document.getElementsByClassName('swatch__panel'),
 	  btnAction: document.getElementsByClassName('btn--action'),
 	  btnSwatch: document.getElementsByClassName('btn--swatch'),
-
-	  hexMultiply: ['15a29c', 'e6625e', '1fde91', '00ffcb', 'f4c7ee', 'fec8be'],
-	  hexLighten: ['293571', '15a29c', '083ea7', '864bff', '008fd3', '20ad65'],
+	  inputColor: document.getElementsByClassName('input__color'),
 
 	  init: function init() {
 	    this.render();
 	  },
 	  createSwatchList: function createSwatchList() {
 
-	    for (var i = 0; i < Colorizer.hexMultiply.length; i++) {
-	      document.getElementById('js-swatch__multiply').insertAdjacentHTML('beforeend', '<div class="swatch__item"><button class="btn  btn--swatch" style="background-color:#' + Colorizer.hexMultiply[i] + '" data-blend="multiply" data-color="' + Colorizer.hexMultiply[i] + '"></button></div>');
-	    }
+	    // if (Storage.paletteM) {
 
-	    for (var _i = 0; _i < Colorizer.hexLighten.length; _i++) {
-	      document.getElementById('js-swatch__lighten').insertAdjacentHTML('beforeend', '<div class="swatch__item"><button class="btn  btn--swatch" style="background-color:#' + Colorizer.hexLighten[_i] + '" data-blend="lighten" data-color="' + Colorizer.hexLighten[_i] + '"></button></div>');
-	    }
-	  },
-	  toggleSwatchOverlay: function toggleSwatchOverlay() {
+	    // let paletteM = JSON.parse(localStorage.getItem('paletteM'));
+	    //
+	    // document.getElementById('js-swatch__multiply').innerHTML = '';
+	    //
+	    // for (let i = 0; i < paletteM.length; i++) {
+	    //   document.getElementById('js-swatch__multiply').insertAdjacentHTML('beforeend', '<div class="swatch__item"><button class="btn  btn--swatch" style="background-color:#'+ paletteM[i] +'" data-blend="multiply" data-color="'+ paletteM[i] +'"></button></div>');
+	    // }
 
-	    var target = this.dataset.target;
+	    var palette = _Storage.Storage.palette;
 
-	    // Toggle active class on action btn
-	    for (var i = 0; i < Colorizer.btnAction.length; i++) {
-	      Colorizer.btnAction[i].classList.remove('is-active');
-	    }
+	    function shuffle(obj) {
+	      for (var j, x, i = obj.length; i; j = parseInt(Math.random() * i), x = obj[--i], obj[i] = obj[j], obj[j] = x) {}
+	      return obj;
+	    };
 
-	    this.classList.add('is-active');
+	    shuffle(palette);
 
-	    // Open swatch overlay and show selected panel
-	    document.getElementById('js-swatch').classList.add('is-active');
-
-	    for (var _i2 = 0; _i2 < Colorizer.swatchPanel.length; _i2++) {
-	      Colorizer.swatchPanel[_i2].style.setProperty('display', 'none');
-	    }
-
-	    if (target === 'multiply') {
-	      document.getElementById('js-swatch__multiply').style.setProperty('display', 'flex');
-	    } else if (target === 'lighten') {
-	      document.getElementById('js-swatch__lighten').style.setProperty('display', 'flex');
+	    for (var i = 0; i < 6; i++) {
+	      document.getElementById('js-swatch__panel').insertAdjacentHTML('beforeend', '<div class="swatch__item"><button class="btn  btn--swatch" style="color:#' + palette[i].lighten + '; background-color:#' + palette[i].multiply + '" data-multiply="' + palette[i].multiply + '" data-lighten="' + palette[i].lighten + '"></button></div>');
 	    }
 	  },
 	  updateBlendMode: function updateBlendMode() {
 
-	    var blend = this.dataset.blend;
-	    var color = this.dataset.color;
+	    var multiply = this.dataset.multiply;
+	    var lighten = this.dataset.lighten;
 
-	    if (blend === 'multiply') {
-	      document.documentElement.style.setProperty('--blend-multiply', '#' + color);
-	      // document.getElementById('js-code__multiply').innerHTML = '.colorizer::before {\n\xa0 z-index: 2250;\n\xa0 background-color: #'+ color +';\n\xa0 mix-blend-mode: multiply;\n\}';
-	    } else if (blend === 'lighten') {
-	      document.documentElement.style.setProperty('--blend-lighten', '#' + color);
-	      // document.getElementById('js-code__lighten').innerHTML = '.colorizer::before {\n\xa0 z-index: 2500;\n\xa0 background-color: #'+ color +';\n\xa0 mix-blend-mode: lighten;\n\}';
+	    document.documentElement.style.setProperty('--blend-multiply', '#' + multiply);
+	    document.documentElement.style.setProperty('--blend-lighten', '#' + lighten);
+
+	    for (var i = 0; i < Colorizer.btnSwatch.length; i++) {
+	      Colorizer.btnSwatch[i].classList.remove('is-active');
 	    }
 
-	    _Storage.Storage.savePalette(blend, color);
+	    this.classList.add('is-active');
+
+	    _Storage.Storage.savePalette(multiply, lighten);
 	  },
 	  render: function render() {
 
 	    // Create color swatches
 	    Colorizer.createSwatchList();
 
-	    // Open swatch list
-	    for (var i = 0; i < Colorizer.btnAction.length; i++) {
-	      Colorizer.btnAction[i].addEventListener('click', Colorizer.toggleSwatchOverlay, false);
-	    }
-
 	    // Click swatch to update blend modes
-	    for (var _i3 = 0; _i3 < Colorizer.btnSwatch.length; _i3++) {
-	      Colorizer.btnSwatch[_i3].addEventListener('click', Colorizer.updateBlendMode, false);
+	    for (var i = 0; i < Colorizer.btnSwatch.length; i++) {
+	      Colorizer.btnSwatch[i].addEventListener('click', Colorizer.updateBlendMode, false);
 	    }
 	  }
 	};
@@ -203,21 +187,21 @@
 	});
 	var Storage = exports.Storage = {
 
-	  blendMultiply: localStorage.getItem('blendMultiply'),
-	  blendLighten: localStorage.getItem('blendLighten'),
+	  userMultiply: localStorage.getItem('userMultiply'),
+	  userLighten: localStorage.getItem('userLighten'),
 	  userImage: localStorage.getItem('userImage'),
 	  colorizerImage: document.getElementById('js-colorizer__image'),
+
+	  palette: [{ 'multiply': '15a29c', 'lighten': '293571' }, { 'multiply': 'e6625e', 'lighten': '15a29c' }, { 'multiply': '1fde91', 'lighten': '083ea7' }, { 'multiply': '00ffcb', 'lighten': '864bff' }, { 'multiply': 'f4c7ee', 'lighten': '008fd3' }, { 'multiply': 'fec8be', 'lighten': '20ad65' }, { 'multiply': 'f9f8e6', 'lighten': 'ff8b8b' }, { 'multiply': 'eec0db', 'lighten': '162bf4' }, { 'multiply': 'b6cac0', 'lighten': 'c02a1b' }, { 'multiply': 'e88565', 'lighten': '181a27' }],
 
 	  init: function init() {
 	    this.render();
 	  },
-	  savePalette: function savePalette(blend, color) {
+	  savePalette: function savePalette(multiply, lighten) {
 
-	    if (blend === 'multiply') {
-	      localStorage.setItem('blendMultiply', color);
-	    } else if (blend === 'lighten') {
-	      localStorage.setItem('blendLighten', color);
-	    }
+	    localStorage.setItem('userMultiply', multiply);
+
+	    localStorage.setItem('userLighten', lighten);
 	  },
 	  handleImage: function handleImage(result) {
 
@@ -225,12 +209,12 @@
 	  },
 	  render: function render() {
 
-	    if (Storage.blendMultiply) {
-	      document.documentElement.style.setProperty('--blend-multiply', '#' + Storage.blendMultiply);
+	    if (Storage.userMultiply) {
+	      document.documentElement.style.setProperty('--blend-multiply', '#' + Storage.userMultiply);
 	    }
 
-	    if (Storage.blendLighten) {
-	      document.documentElement.style.setProperty('--blend-lighten', '#' + Storage.blendLighten);
+	    if (Storage.userLighten) {
+	      document.documentElement.style.setProperty('--blend-lighten', '#' + Storage.userLighten);
 	    }
 
 	    if (Storage.userImage) {

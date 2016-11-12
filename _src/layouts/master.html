@@ -1,4 +1,7 @@
-{% set siteName = 'Colorizer' %}
+{% set settings = settings | default({}) | merge({
+  "siteName" : "Colorizer",
+  "siteDesc" : "Experiment with CSS Blend Modes to reproduce the effects of Spotify's brand identity."
+}) %}
 
 <!doctype html>
 
@@ -8,13 +11,15 @@
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-    <meta name="description" content="Experiment with CSS Blend Modes to reproduce the effects of Spotify's brand identity.">
-    <title>{{ siteName }}</title>
+    <meta name="description" content="{{ settings.siteDesc }}">
+    <title>{{ settings.siteName }}</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="apple-mobile-web-app-title" content="{{ siteName }}">
+    <meta name="apple-mobile-web-app-title" content="{{ settings.siteName }}">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="dns-prefetch" href="//google-analytics.com">
 
     <link rel="stylesheet" href="/assets/styles/main.css">
 
@@ -24,10 +29,10 @@
 
     <div class="app" id="js-app">
 
-      <header class="header" id="js-test" role="banner">
+      <header class="header" role="banner">
         <div class="t-block">
-          <h1 class="t-title">Colorizer</h1>
-          <h2 class="t-subtitle">Experiment with CSS Blend Modes to reproduce the effects of <a class="" href="http://www.wearecollins.com/work/spotify/" target="_blank">Spotify's brand identity.</a></h2>
+          <h1 class="t-title">{{ settings.siteName }}</h1>
+          <h2 class="t-subtitle">Experiment with CSS Blend Modes to reproduce the effects of <a target="_blank" href="http://www.wearecollins.com/work/spotify/">Spotify's brand identity.</a></h2>
         </div>
       </header>
 

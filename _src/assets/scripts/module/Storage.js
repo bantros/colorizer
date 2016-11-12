@@ -2,22 +2,28 @@
 
 export const Storage = {
 
-  blendMultiply   : localStorage.getItem('blendMultiply'),
-  blendLighten    : localStorage.getItem('blendLighten'),
+  userMultiply    : localStorage.getItem('userMultiply'),
+  userLighten     : localStorage.getItem('userLighten'),
   userImage       : localStorage.getItem('userImage'),
   colorizerImage  : document.getElementById('js-colorizer__image'),
+
+  palette : [
+    {'multiply': '15a29c', 'lighten': '293571'}, {'multiply': 'e6625e', 'lighten': '15a29c'},
+    {'multiply': '1fde91', 'lighten': '083ea7'}, {'multiply': '00ffcb', 'lighten': '864bff'},
+    {'multiply': 'f4c7ee', 'lighten': '008fd3'}, {'multiply': 'fec8be', 'lighten': '20ad65'},
+    {'multiply': 'f9f8e6', 'lighten': 'ff8b8b'}, {'multiply': 'eec0db', 'lighten': '162bf4'},
+    {'multiply': 'b6cac0', 'lighten': 'c02a1b'}, {'multiply': 'e88565', 'lighten': '181a27'}
+  ],
 
   init() {
     this.render();
   },
 
-  savePalette(blend, color) {
+  savePalette(multiply, lighten) {
 
-    if (blend === 'multiply') {
-      localStorage.setItem('blendMultiply', color);
-    } else if (blend === 'lighten') {
-      localStorage.setItem('blendLighten', color);
-    }
+    localStorage.setItem('userMultiply', multiply);
+
+    localStorage.setItem('userLighten', lighten);
 
   },
 
@@ -29,12 +35,12 @@ export const Storage = {
 
   render() {
 
-    if (Storage.blendMultiply) {
-      document.documentElement.style.setProperty('--blend-multiply', '#' + Storage.blendMultiply);
+    if (Storage.userMultiply) {
+      document.documentElement.style.setProperty('--blend-multiply', '#' + Storage.userMultiply);
     }
 
-    if (Storage.blendLighten) {
-      document.documentElement.style.setProperty('--blend-lighten', '#' + Storage.blendLighten);
+    if (Storage.userLighten) {
+      document.documentElement.style.setProperty('--blend-lighten', '#' + Storage.userLighten);
     }
 
     if (Storage.userImage) {
