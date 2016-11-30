@@ -12,8 +12,14 @@ export const Storage = {
     {'multiply': '1fde91', 'lighten': '083ea7'}, {'multiply': '00ffcb', 'lighten': '864bff'},
     {'multiply': 'f4c7ee', 'lighten': '008fd3'}, {'multiply': 'fec8be', 'lighten': '20ad65'},
     {'multiply': 'f9f8e6', 'lighten': 'ff8b8b'}, {'multiply': 'eec0db', 'lighten': '162bf4'},
-    {'multiply': 'b6cac0', 'lighten': 'c02a1b'}, {'multiply': 'e88565', 'lighten': '181a27'}
+    {'multiply': 'b6cac0', 'lighten': 'c02a1b'}, {'multiply': 'e88565', 'lighten': '181a27'},
+    {'multiply': 'fe667b', 'lighten': 'c0c2ce'},
+    {'multiply': 'c5373c', 'lighten': '3700ee'}, {'multiply': 'bdece1', 'lighten': '49394e'},
+    {'multiply': '7297f3', 'lighten': '273163'}
   ],
+
+  // 7297f3
+// 273163
 
   init() {
     this.render();

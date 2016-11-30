@@ -4,9 +4,8 @@ import { Storage } from './Storage';
 
 export const Colorizer = {
 
-  btnAction   : document.getElementsByClassName('btn--action'),
-  btnSwatch   : document.getElementsByClassName('btn--swatch'),
-  inputColor  : document.getElementsByClassName('input__color'),
+  swatchPanel  : document.getElementById('js-swatch__panel'),
+  btnSwatch    : document.getElementsByClassName('btn--swatch'),
 
   init() {
     this.render();
@@ -14,27 +13,33 @@ export const Colorizer = {
 
   createSwatchList() {
 
-    // if (Storage.paletteM) {
-
-      // let paletteM = JSON.parse(localStorage.getItem('paletteM'));
-      //
-      // document.getElementById('js-swatch__multiply').innerHTML = '';
-      //
-      // for (let i = 0; i < paletteM.length; i++) {
-      //   document.getElementById('js-swatch__multiply').insertAdjacentHTML('beforeend', '<div class="swatch__item"><button class="btn  btn--swatch" style="background-color:#'+ paletteM[i] +'" data-blend="multiply" data-color="'+ paletteM[i] +'"></button></div>');
-      // }
-
     let palette = Storage.palette;
 
     function shuffle(obj) {
-    	for (var j, x, i = obj.length; i; j = parseInt(Math.random() * i), x = obj[--i], obj[i] = obj[j], obj[j] = x);
+    	for (let j, x, i = obj.length; i; j = parseInt(Math.random() * i), x = obj[--i], obj[i] = obj[j], obj[j] = x);
     	return obj;
-    };
+    }
 
     shuffle(palette);
 
+    Colorizer.swatchPanel.innerHTML = '';
+
     for (let i = 0; i < 6; i++) {
-      document.getElementById('js-swatch__panel').insertAdjacentHTML('beforeend', '<div class="swatch__item"><button class="btn  btn--swatch" style="color:#'+ palette[i].lighten +'; background-color:#'+ palette[i].multiply +'" data-multiply="'+ palette[i].multiply +'" data-lighten="'+ palette[i].lighten +'"></button></div>');
+      Colorizer.swatchPanel.insertAdjacentHTML('beforeend', '<div class="swatch__item"><button class="btn  btn--swatch" style="color:#'+ palette[i].lighten +'; background-color:#'+ palette[i].multiply +'" data-multiply="'+ palette[i].multiply +'" data-lighten="'+ palette[i].lighten +'"></button></div>');
+    }
+
+    Colorizer.swatchPanel.insertAdjacentHTML('beforeend', '<div class="swatch__item"><button class="btn  btn--random" id="js-btn--random"><span class="h-srt">Randomise palette</span></button></div>');
+
+    Colorizer.attachEventListner();
+
+  },
+
+  attachEventListner() {
+
+    document.getElementById('js-btn--random').addEventListener('click', Colorizer.createSwatchList, false);
+
+    for (let i = 0; i < document.getElementsByClassName('btn--swatch').length; i++) {
+      document.getElementsByClassName('btn--swatch')[i].addEventListener('click', Colorizer.updateBlendMode, false);
     }
 
   },
@@ -59,13 +64,7 @@ export const Colorizer = {
 
   render() {
 
-    // Create color swatches
     Colorizer.createSwatchList();
-
-    // Click swatch to update blend modes
-    for (let i = 0; i < Colorizer.btnSwatch.length; i++) {
-      Colorizer.btnSwatch[i].addEventListener('click', Colorizer.updateBlendMode, false);
-    }
 
   }
 

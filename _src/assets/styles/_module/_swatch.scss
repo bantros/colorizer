@@ -10,9 +10,15 @@
 
 .swatch__content {
   display: flex;
+  flex-direction: column;
   width: 100%;
   padding-top: 1.563em;
   padding-bottom: 1.563em;
+}
+
+.swatch__random {
+  padding-left: 1.563em;
+  padding-right: 1.563em;
 }
 
 .swatch__panel {

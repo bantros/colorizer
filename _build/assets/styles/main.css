@@ -614,6 +614,21 @@ pre {
   border-color: var(--blend-multiply);
 }
 
+.btn--random {
+  background-color: #fff;
+}
+
+.btn--random::after {
+  content: '+';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 2.5em;
+  color: #777777;
+  transform: translate(-50%, -50%);
+}
+
+.btn--random,
 .btn--swatch {
   position: relative;
   width: 3.125em;
@@ -741,9 +756,16 @@ pre {
 .swatch__content {
   display: -ms-flexbox;
   display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
   width: 100%;
   padding-top: 1.563em;
   padding-bottom: 1.563em;
+}
+
+.swatch__random {
+  padding-left: 1.563em;
+  padding-right: 1.563em;
 }
 
 .swatch__panel {

@@ -24,16 +24,15 @@ var path = {
   src: './_src',
   build: './_build',
   css: '/assets/styles',
-  js: '/assets/scripts',
-  proxy: 'colorizer.dev'
+  js: '/assets/scripts'
 };
 
 // browserSync
 
 gulp.task('browserSync', function() {
 
-  browserSync({
-    proxy: path.proxy,
+  browserSync.init({
+    server: path.build,
     notify: false
   });
 
@@ -66,17 +65,7 @@ gulp.task('scripts', function() {
     .pipe(plumber({ errorHandler: onError }))
     .pipe(!util.env.production ? jshint('.jshintrc') : util.noop())
     .pipe(!util.env.production ? jshint.reporter('jshint-stylish') : util.noop())
-    .pipe(webpack({
-      output: {
-        filename: 'bundle.js'
-      },
-      module: {
-        loaders: [{
-          test: /\.js$/,
-          loader: 'babel'
-        }]
-      }
-    }))
+    .pipe(webpack(require('./webpack.config.js')))
     .pipe(util.env.production ? uglify() : util.noop())
     .pipe(gulp.dest(path.build + path.js))
     .pipe(browserSync.reload({ stream: true }))
